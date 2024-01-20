@@ -38,6 +38,13 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    
+    "django.contrib.sites",
+
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+
     "posts",
 ]
 
@@ -49,6 +56,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    'allauth.account.middleware.AccountMiddleware',
 ]
 
 ROOT_URLCONF = "blog.urls"
@@ -128,6 +136,16 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media_root')
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-# SITE_ID = 1
 # identificar que el modelo User se encuentra en posts.Models
 AUTH_USER_MODEL = 'posts.User' 
+
+
+# pip install django-allauth
+# https://docs.allauth.org/en/latest/installation/quickstart.html#
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+
+    'allauth.account.auth_backends.AuthenticationBackend',
+]
+
+SITE_ID = 1
