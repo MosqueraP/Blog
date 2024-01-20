@@ -19,7 +19,7 @@ class Post(models.Model):
     publish_date = models.DateTimeField(auto_now_add=True)
     update_date = models.DateTimeField(auto_now=True)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
-    # autor = models.Foreinkey()
+    slug = models.SlugField()
 
     def __str__(self):
         return self.title
