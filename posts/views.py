@@ -1,8 +1,7 @@
 from django.shortcuts import render
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from posts.models import Post, PostView, Like, Comment
-
-from posts.models import Post
+from posts.forms import PostForm
 
 # Create your views here.
 
@@ -14,25 +13,16 @@ class PostDetailView(DetailView):
     model = Post
 
 class PostCreateView(CreateView):
+    form_class = PostForm
     model = Post
-    fields = (
-        'title',
-        'content',
-        'image',
-        'author',
-        'slug'
-    )
+
 
 # Actualizar
 class PostUpdateView(UpdateView):
+    form_class = PostForm
     model = Post
-    fields = (
-        'title',
-        'content',
-        'image',
-        'author',
-        'slug'
-    )
+    
+
 
 class PostDeleteView(DeleteView):
     model = Post

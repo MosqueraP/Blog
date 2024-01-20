@@ -3,11 +3,13 @@ desde post_form.html
 
 {% block content %}
 Updates
-<h1>Esta es la vista de Update</h1>
+<h1>Esta es la vista de update create, estamos en {{ view_type }}</h1>
+
+<form action="" method="post">
+    {% csrf_token%}
+    {{ form.as_p }}
+<button class="btn btn-primary" type="submit">view_type</button>
+</form>
     
 {% endblock %}
-
-
-
-
 
