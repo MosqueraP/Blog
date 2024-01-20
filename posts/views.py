@@ -6,6 +6,7 @@ from posts.models import Post
 
 # Create your views here.
 
+# vista ListView mustra todos los contenidos del modelo
 class PostLisView(ListView):
     model = Post
     
