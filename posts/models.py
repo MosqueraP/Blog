@@ -28,6 +28,17 @@ class Post(models.Model):
     def get_absolute_url(self):
         return reverse('detail', kwargs={'slug': self.slug})
         
+    @property
+    def get_comment_count(self):
+        return self.comment_set.all().count() # contar commentarios en los post
+    
+    @property
+    def get_view_count(self):
+        return self.postview_set.all().count() # contar commentarios en los post
+    
+    @property
+    def get_like_count(self):
+        return self.like_set.all().count() # contar commentarios en los post
     
 
 
@@ -41,6 +52,7 @@ class Comment(models.Model):
     def __str__(self):
         return self.user.username # quien hizo el comentario
     
+
 # fecha de creacion del post
 class PostView(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
