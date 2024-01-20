@@ -15,6 +15,13 @@ class PostDetailView(DetailView):
 
 class PostCreateView(CreateView):
     model = Post
+    fields = (
+        'title',
+        'content',
+        'image',
+        'author',
+        'slug'
+    )
 
 # Actualizar
 class PostUpdateView(UpdateView):
