@@ -1,0 +1,15 @@
+
+{% extends "base.html" %}
+
+{% block content %}
+delete
+<div class="container">
+   <h1>Desde la nueva vista de delete</h1> 
+   <h2>Seguro deseas borrar esto? </h2>
+
+   <form action="" method="post">
+        {% csrf_token%}
+    <button class="btn btn-primary" type="submit">Confirmar</button>
+   </form>
+{% endblock %}
+

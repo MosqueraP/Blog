@@ -16,8 +16,17 @@ class PostDetailView(DetailView):
 class PostCreateView(CreateView):
     model = Post
 
+# Actualizar
 class PostUpdateView(UpdateView):
     model = Post
+    fields = (
+        'title',
+        'content',
+        'image',
+        'author',
+        'slug'
+    )
 
 class PostDeleteView(DeleteView):
     model = Post
+    success_url = '/' # redireccionar a la misma vista en la que se invoca
