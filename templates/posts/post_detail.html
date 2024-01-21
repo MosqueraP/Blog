@@ -3,10 +3,41 @@
 {% block content %}
 Detail
 <div class="container">
-    <h1>Post Datail View</h1>
-    {{ object.title }}
-</div>
-    
+
+    <div class="row">
+        <div class="col-4 offset-4">
+            <div class="card" style="padding: 10px; ">
+                <h1>Post Datail View</h1>
+                {{ object.title }}
+                <img src="{{ object.image.url }}" class="card-img-top" alt="..." />
+
+                <hr>
+
+                <div>
+                    <span><i class="fas fa-comments ml-2"></i>{{ object.get_comment_count}}</span>
+                    <span><i class="fas fa-eye ml-2"></i>{{ object.get_view_count}}</span>
+                    <span><i class="fas fa-thumbs-up ml-2"> </i>{{object.get_like_count}}</span>
+                    <span class="fas fa-right"> Posted {{ object.publish_date|timesince }} ago</span>
+                </div>
+
+                <hr>
+
+                <div style="padding: 10px;">
+                    <p>{{ object.content }}</p>
+                </div>
+
+                <hr>
+
+                <div>
+                    <h4>Enjoy this post? Give it Like</h4>
+
+                    <a class="text-muted" href="#">
+                        <i class="fa-solid fa-thumbs-up"></i>
+                        {{ object.get_like_count }}
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
 {% endblock %}
-
-
