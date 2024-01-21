@@ -1,5 +1,5 @@
 # from typing import Any
-from django.shortcuts import render
+from django.shortcuts import redirect, render, get_object_or_404
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from posts.models import Post, PostView, Like, Comment
 from posts.forms import PostForm
@@ -42,3 +42,13 @@ class PostUpdateView(UpdateView):
 class PostDeleteView(DeleteView):
     model = Post
     success_url = '/' # redireccionar a la misma vista en la que se invoca
+
+def like(request, slug):
+    post = get_object_or_404(Post, slug=slug)
+    like_qs = Like.objects.filter(user=request.user, post=post)
+    if like_qs.exists():
+        like_qs[0].delete()
+        return redirect('detail', slug=slug)
+    
+    Like.objects.create(user=request.user, post=post)
+    return redirect('detail', slug=slug)
