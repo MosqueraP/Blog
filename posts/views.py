@@ -14,12 +14,14 @@ class PostLisView(ListView):
     
 class PostDetailView(DetailView):
     model = Post
-    
-    # visualizar las vista de los post
+
+    # visualizar las vista de los post, si el user es autenticado
     def get_object(self, **kwargs):
         object=super().get_object(**kwargs)
-        PostView.objects.get_or_create(user=self.request.user, post=object)
-        
+
+        if self.request.user.is_authenticated:
+            PostView.objects.get_or_create(user=self.request.user, post=object)
+                        
         return object
 
 class PostCreateView(CreateView):
