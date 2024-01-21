@@ -10,20 +10,23 @@ from posts.forms import PostForm
 class PostLisView(ListView):
     model = Post
     
+
+    
 class PostDetailView(DetailView):
     model = Post
+    
+    # visualizar las vista de los post
+    def get_object(self, **kwargs):
+        object=super().get_object(**kwargs)
+        PostView.objects.get_or_create(user=self.request.user, post=object)
+        
+        return object
 
 class PostCreateView(CreateView):
     form_class = PostForm
     model = Post
     success_url = '/' # redireccionar a la misma vista en la que se invoca
     
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context.update({
-            'view_type':'create'
-        })
-        return context
 
 # Actualizar
 class PostUpdateView(UpdateView):
@@ -43,6 +46,7 @@ class PostDeleteView(DeleteView):
     model = Post
     success_url = '/' # redireccionar a la misma vista en la que se invoca
 
+# Funcionalidad de los likes
 def like(request, slug):
     post = get_object_or_404(Post, slug=slug)
     like_qs = Like.objects.filter(user=request.user, post=post)
