@@ -1,4 +1,6 @@
 {% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% crispy form %}
 
 {% block content %}
 Detail
@@ -43,7 +45,7 @@ Detail
                     <h4>Deja un comentario</h4>
                         <form action="" method="post">
                             {% csrf_token%}
-                            {{ form.as_p }}
+                            {{ form|crispy }}
                         <button class="btn btn-primary" type="Comment">Comment</button>
                         </form>
                         <hr>

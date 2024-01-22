@@ -9,6 +9,10 @@ class PostForm(forms.ModelForm):
 
 # formulario para crear y actualizar el conetnido de comentasrios
 class CommentForm(forms.ModelForm):
+    content = forms.CharField(required=True, widget=forms.Textarea(attrs={
+        'rows': 4
+    }))
+
     class Meta:
         model = Comment
         fields = ('content', ) #tupla # traer el campo de la clase Comment
