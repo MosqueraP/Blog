@@ -1,8 +1,9 @@
 # from typing import Any
+from typing import Any
 from django.shortcuts import redirect, render, get_object_or_404
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from posts.models import Post, PostView, Like, Comment
-from posts.forms import PostForm
+from posts.forms import PostForm, CommentForm
 
 # Create your views here.
 
@@ -14,6 +15,25 @@ class PostLisView(ListView):
     
 class PostDetailView(DetailView):
     model = Post
+
+    # funcionalidad para crear comentarios
+    def post(self, *args, **kwargs):
+        form = CommentForm(self.request.POST)
+        if form.is_valid:
+            post = self.get_object()
+            comment = form.instance
+            comment.user = self.request.user
+            comment.post = post
+            comment.save()
+            return redirect('detail', slug=post.slug)
+
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context.update({
+            'form': CommentForm()
+        })
+        return context
 
     # visualizar las vista de los post, si el user es autenticado
     def get_object(self, **kwargs):

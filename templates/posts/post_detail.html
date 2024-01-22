@@ -37,6 +37,31 @@ Detail
                         <i class="fa-solid fa-thumbs-up"></i>
                         {{ object.get_like_count }}
                     </a>
+
+                    <hr>
+                    {% if request.user.is_authenticated %}
+                    <h4>Deja un comentario</h4>
+                        <form action="" method="post">
+                            {% csrf_token%}
+                            {{ form.as_p }}
+                        <button class="btn btn-primary" type="Comment">Comment</button>
+                        </form>
+                        <hr>
+                        <h5>comments</h5>
+                        {% for comment in object.comments %}
+                            <div>
+                                <p>{{ comment.content }}
+                                <br>
+                                    <small>{{ comment.timestamp|timesince }} ago</small>
+                                    </p>
+                            </div>
+                            <hr>
+                        {% endfor %}
+                            
+                    {% else %}
+                    <a href="{% url 'account_login' %}" class="btn btn-primary btn-block">Login to comment</a>
+                    {% endif %}
+                    
                 </div>
             </div>
         </div>
